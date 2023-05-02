@@ -12,6 +12,7 @@ const corser = require('corser')
 const mdbg = require('mdbg')
 const http = require('http')
 const ip = require('ip')
+const port = process.env.PORT || 3001;
 
 const app = express()
 app.use(corser.create())
@@ -187,6 +188,7 @@ app.get('/hsk/:query', async (req, res) => {
 	}
 })
 
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 //const port = Number(process.env.PORT || 8080)
 //http.createServer(app).listen(port, ip.address(), async err => {
 //	if (err) {
