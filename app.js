@@ -11,7 +11,10 @@ const definitionLookup = JSON.parse(fs.readFileSync('kDefinition.json'));
 
 const express = require('express')
 const corser = require('corser')
+const cedict = require('cedict-lookup');
+var dict = cedict.loadSimplified('cedict_ts.u8');
 const app = express()
+
 app.use(corser.create())
 
 app.get('/', (req, res) => {
@@ -22,8 +25,8 @@ app.get('/', (req, res) => {
 app.get('/pinyin/:query', async (req, res) => {
 	const list = []
 	for (let char of req.params.query) {
-		console.log(char)
-		console.log(pinyinLookup[char])
+		// console.log(char)
+		// console.log(pinyinLookup[char])
 		list.push(pinyinLookup[char])
 	}
 	res.status(200).send({pinyin:list.join(' ')})
@@ -31,12 +34,23 @@ app.get('/pinyin/:query', async (req, res) => {
 
 app.get('/definition/:query', async (req, res) => {
 	const list = []
-	for (let char of req.params.query) {
-		console.log(char)
-		console.log(definitionLookup[char])
-		list.push(definitionLookup[char])
+	
+	const cedict = dict.getMatch(req.params.query)
+	const cedictDefinition = [];
+	cedict.forEach((thing ) => {
+		cedictDefinition.push(thing.english)
+	})
+	if (cedictDefinition.length > 0) {
+		console.log("cedict def")
+		res.status(200).send({definition:cedictDefinition})
+	} else {
+		for (let char of req.params.query) {
+			list.push(definitionLookup[char])
+		}
+		console.log("unihan")
+
+		res.status(200).send({definition:list})
 	}
-	res.status(200).send({pinyin:list})
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

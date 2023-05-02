@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cedict-lookup": "^0.0.2",
     "corser": "^2.0.1",
     "express": "^4.18.2"
   }
