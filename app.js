@@ -26,7 +26,7 @@ app.get('/pinyin/:query', async (req, res) => {
 		console.log(pinyinLookup[char])
 		list.push(pinyinLookup[char])
 	}
-	res.status(200).send({pinyin:list})
+	res.status(200).send({pinyin:list.join(' ')})
 })
 
 app.get('/definition/:query', async (req, res) => {
@@ -36,7 +36,7 @@ app.get('/definition/:query', async (req, res) => {
 		console.log(definitionLookup[char])
 		list.push(definitionLookup[char])
 	}
-	res.status(200).send({definition:list})
+	res.status(200).send({pinyin:list})
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
