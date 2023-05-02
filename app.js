@@ -17,7 +17,7 @@ const app = express()
 app.use(corser.create())
 
 app.get('/', (req, res) => {
-	res.send('<a href="https://github.com/pepebecker/pinyin-rest">View GitHub Repository</a>')
+	res.send('<a href="https://github.com/ToothbrushB/pinyin-rest">View GitHub Repository</a>')
 })
 
 const getByHanzi = async (text, everything) => {
@@ -187,13 +187,13 @@ app.get('/hsk/:query', async (req, res) => {
 	}
 })
 
-const port = Number(process.env.PORT || 8080)
-http.createServer(app).listen(port, ip.address(), async err => {
-	if (err) {
-		console.error(err)
-		process.exit(1)
-	} else {
-		console.log(`Server running on http://${ip.address()}:${port}`)
-		convertPinyin.init(await hanziToZhuyin.init(await mdbg.init()))
-	}
-})
+//const port = Number(process.env.PORT || 8080)
+//http.createServer(app).listen(port, ip.address(), async err => {
+//	if (err) {
+//		console.error(err)
+//		process.exit(1)
+//	} else {
+//		console.log(`Server running on http://${ip.address()}:${port}`)
+//		convertPinyin.init(await hanziToZhuyin.init(await mdbg.init()))
+//	}
+//})
